@@ -4,4 +4,4 @@
 
 (t/deftest map->properties-test
   (t/is (= {"a" 1 "b" "abc"}
-           (sut/map->properties {:a 1 :b "abc"}))))
+           (sut/config->properties {:a 1 :b "abc"}))))
