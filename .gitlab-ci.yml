@@ -1,0 +1,9 @@
+image: clojure:lein-2.7.1
+
+before_script:
+  - apt-get update -y
+  - lein deps
+
+test:
+  script:
+    - lein test
