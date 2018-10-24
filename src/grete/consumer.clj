@@ -1,7 +1,8 @@
 (ns grete.consumer
   (:require [grete.config :as config]
             [schema.core :as s])
-  (:import java.util.concurrent.TimeUnit
+  (:import java.time.Duration
+           java.util.concurrent.TimeUnit
            [org.apache.kafka.clients.consumer Consumer KafkaConsumer]
            org.apache.kafka.common.serialization.Deserializer))
 
@@ -24,24 +25,25 @@
     value-deserializer)))
 
 ;; TODO partitions format - String topic, int partition
-(defn assign [^Consumer consumer partitions]
-  (.assign consumer partition))
+(defn assign [^Consumer consumer ptn]
+  (.assign consumer ptn))
 
 (defn assignment [^Consumer consumer]
   (.assignment consumer))
 
 ;; TODO partitions
-(defn beginning-offsets [^Consumer consumer partitions]
-  (.beginningOffsets consumer partitions))
+(defn beginning-offsets [^Consumer consumer ptns]
+  (.beginningOffsets consumer ptns))
 
-(defn close!
-  ([^Consumer consumer] (.close consumer))
-  ([^Consumer consumer timeout] (.close consumer timeout TimeUnit/SECONDS)))
+(defn close! [^Consumer consumer]
+  (.close consumer))
 
-;; TODO offsets format
+;; TODO offsets fomat
 (defn commit-async!
   ([^Consumer consumer] (.commitAsync consumer))
-  ([^Consumer consumer offsets callback] (.commitAsync consumer offsets callback)))
+  ([^Consumer consumer offsets callback] (.commitAsync consumer
+                                                       offsets
+                                                       callback)))
 
 ;; TODO offsets format
 (defn commit-sync!
@@ -49,12 +51,12 @@
   ([^Consumer consumer offsets] (.commitSync consumer offsets)))
 
 ;; TODO partition format
-(defn committed [^Consumer consumer partition]
-  (.committed consumer partition))
+(defn committed [^Consumer consumer ptn]
+  (.committed consumer ptn))
 
 ;; TODO partitions format
-(defn endOffsets [^Consumer consumer partitions]
-  (.endOffsets consumer partitions))
+(defn endOffsets [^Consumer consumer ptns]
+  (.endOffsets consumer ptns))
 
 (defn list-topics [^Consumer consumer]
   (.listTopics consumer))
@@ -63,8 +65,8 @@
   (.metrics consumer))
 
 ;; TODO partition-timestamps
-(defn offsets-for-times [^Consumer consumer partition-timestamps]
-  (.offsetsForTimes consumer partition-timestamps))
+(defn offsets-for-times [^Consumer consumer ptn-timestamps]
+  (.offsetsForTimes consumer ptn-timestamps))
 
 (defn partitions-for [^Consumer consumer topic]
   (.partitionsFor topic))
@@ -72,28 +74,28 @@
 (defn paused [^Consumer consumer]
   (.paused consumer))
 
-(defn poll! [^Consumer consumer timeout]
+(defn poll! [^Consumer consumer ^Duration timeout]
   (.poll consumer timeout))
 
 ;; TODO partition
-(defn position [^Consumer consumer partition]
-  (.position consumer partition))
+(defn position [^Consumer consumer ptn]
+  (.position consumer ptn))
 
 ;; TODO partitions
-(defn resume! [^Consumer consumer partitions]
-  (.resume consumer partitions))
+(defn resume! [^Consumer consumer ptns]
+  (.resume consumer ptns))
 
 ;; TODO partition
-(defn seek! [^Consumer consumer partition offset]
-  (.seek consumer partition offset))
+(defn seek! [^Consumer consumer ptn offset]
+  (.seek consumer ptn offset))
 
 ;; TODO partitions
-(defn seek-to-beginning! [^Consumer consumer partitions]
-  (.seekToBeginning consumer partitions))
+(defn seek-to-beginning! [^Consumer consumer ptns]
+  (.seekToBeginning consumer ptns))
 
 ;; TODO partitions
-(defn seek-to-end! [^Consumer consumer partitions]
-  (.seekToEnd consumer partitions))
+(defn seek-to-end! [^Consumer consumer ptns]
+  (.seekToEnd consumer ptns))
 
 ;; TODO listener
 ;; TODO regex pattern
