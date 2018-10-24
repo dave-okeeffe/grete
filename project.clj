@@ -5,4 +5,4 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.apache.kafka/kafka-clients "2.0.0"]
-                 [prismatic/schema "1.1.5"]])
+                 [prismatic/schema "1.1.9"]])
